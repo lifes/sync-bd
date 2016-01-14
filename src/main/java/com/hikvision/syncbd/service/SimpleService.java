@@ -29,18 +29,19 @@ public class SimpleService {
 
 	public void uploadCrossingInfo(Config config) {			
 		List<CrossingInfo> all = simpleMapper.getAllCrossingInfo();
-		int base = all.size();
-		upload(all,"BMS_CROSSING_INFO",config);
+		logger.info("共查到"+all.size()+"条CI数据");
+		int base = 0;
 		for(;;){
 			int total = simpleMapper.getTotalNumber("BMS_CROSSING_INFO");
 			if(total>base){
+				logger.info("新增"+(total-base)+"条CI数据");
 				all = simpleMapper.getAllCrossingInfo();
-				List<CrossingInfo> xz = all.subList(total-base-1, total-base);
+				List<CrossingInfo> xz = all.subList(base, total);
 				upload(xz,"BMS_CROSSING_INFO",config);
 			}
 			base = total;
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				logger.error(e.getMessage());
 			}
@@ -49,18 +50,19 @@ public class SimpleService {
 	
 	public void uploadLaneInfo(Config config) {		
 		List<LaneInfo> all = simpleMapper.getAllLaneInfo();
-		int base = all.size();
-		upload(all,"BMS_LANE_INFO",config);
+		logger.info("共查到"+all.size()+"条LI数据");
+		int base = 0;
 		for(;;){
 			int total = simpleMapper.getTotalNumber("BMS_LANE_INFO");
 			if(total>base){
+				logger.info("新增"+(total-base)+"条LI数据");
 				all = simpleMapper.getAllLaneInfo();
-				List<LaneInfo> xz = all.subList(total-base-1, total-base);
+				List<LaneInfo> xz = all.subList(base, total);
 				upload(xz,"BMS_LANE_INFO",config);
 			}
 			base = total;
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				logger.error(e.getMessage());
 			}

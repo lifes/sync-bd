@@ -44,6 +44,11 @@ public class T3 implements Runnable {
 			} catch (Throwable e) {
 				logger.error("unmarked error");
 			}
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				logger.error(e.getMessage());
+			}
 		}
 	}
 }

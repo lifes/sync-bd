@@ -28,6 +28,7 @@ public class Main {
 		Thread t3 = new Thread(new T3(ctx));
 		t1.start();
 		t2.start();
+		t3.start();
 		while (!t1.isAlive()) {
 			Thread.sleep(1000);
 		}
@@ -39,13 +40,14 @@ public class Main {
 			Thread.sleep(1000);
 		}
 		;
-		Thread[] ts = new Thread[2];
+		Thread[] ts = new Thread[3];
 		ts[0] = t1;
 		ts[1] = t2;
 		ts[2] = t3;
 
 		boolean isRuning = true;
 		while (isRuning) {
+			Thread.sleep(5000);
 			for (int i = 0; i < ts.length; i++) {
 				if (ts[i].isAlive()) {
 					isRuning = true;
