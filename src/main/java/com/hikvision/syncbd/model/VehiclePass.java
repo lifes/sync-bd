@@ -136,12 +136,13 @@ public class VehiclePass implements Serializable {
 	public void setPlate_type(Long plate_type) {
 		this.plate_type = plate_type;
 	}
-
+	
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Timestamp getUpdate_time() {
 		return update_time;
 	}
 	
-	@JSONField (format="yyyy-MM-dd HH:mm:ss")
+	
 	public void setUpdate_time(Timestamp update_time) {
 		this.update_time = update_time;
 	}
