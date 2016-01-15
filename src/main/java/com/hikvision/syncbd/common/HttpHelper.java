@@ -29,8 +29,8 @@ public class HttpHelper {
 		params.put("storeName", storeName);
 		params.put("typeName", typeName);
 		params.put("fileType", "IMAGE");
-//		String jsonString = new HttpRequest().sendPostWithFile(
-//				uploadImgSingleUrl, params, null, img);
+		//String jsonString = new HttpRequest().sendPostWithFile(
+		//		uploadImgSingleUrl, params, null, img);
 		String jsonString = new HttpRequest().sendPostWithFile2(uploadImgSingleUrl, img, config);
 		try {
 			JSONObject json = JSON.parseObject(jsonString);

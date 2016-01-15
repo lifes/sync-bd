@@ -1,6 +1,10 @@
 package com.hikvision.syncbd.task;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -38,11 +42,39 @@ public class T3 implements Runnable {
 				File[] imgs = FileUtil
 						.getFilesOnDirectoryNotIncludeFolder(config
 								.getDirectoryPath());
-				for (File img : imgs) {
-					simpleService.uploadOne(img, config);
+				List<Thread> list = new ArrayList<Thread>();
+				List<File> all = Arrays.asList(imgs);
+				int l = imgs.length;
+				int flag = 10;// 线程数
+				int g = (l - (l % flag)) / flag;				
+				if (l > 0) {
+					for (int i = 0; i < flag; i++) {
+						if (i < flag - 1) {
+							File[] ff = all.subList(i * g, g * (i + 1))
+									.toArray(new File[0]);
+							Thread t = new Thread(new T4(ctx, ff));
+							t.start();
+							list.add(t);
+						}else{
+							File[] ff = all.subList(i * g, l)
+									.toArray(new File[0]);
+							Thread t = new Thread(new T4(ctx, ff));
+							t.start();
+							list.add(t);
+						}
+					}
+				}
+				try {
+					for (Thread t : list) {
+						t.join();
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					logger.error(e.getMessage());
 				}
 			} catch (Throwable e) {
-				logger.error("unmarked error");
+				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 			try {
 				Thread.sleep(5000);

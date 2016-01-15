@@ -49,9 +49,9 @@ public class HttpRequest {
 			post.setEntity(entity);
 			response = client.execute(post);
 			int code = response.getStatusLine().getStatusCode();
-			HttpEntity resEntity = response.getEntity();
-			String s = EntityUtils.toString(resEntity);
 			if (200 == code) {
+				HttpEntity resEntity = response.getEntity();
+				String s = EntityUtils.toString(resEntity);
 				return s;
 			} else {
 				throw new WrapperException(
@@ -103,7 +103,7 @@ public class HttpRequest {
 			if (charset == null) {
 				charset = Charset.forName("UTF-8");
 			}
-			// builder.setCharset(charset);
+			builder.setCharset(charset);
 
 			// builder.addTextBody("name", "wtf");
 			for (NameValuePair nvp : mapToListNvp(params)) {

@@ -26,20 +26,18 @@ public class Main {
 		Thread t1 = new Thread(new T1(ctx));
 		Thread t2 = new Thread(new T2(ctx));
 		Thread t3 = new Thread(new T3(ctx));
-		t1.start();
-		t2.start();
+		//t1.start();
+		//t2.start();
 		t3.start();
 		while (!t1.isAlive()) {
 			Thread.sleep(1000);
 		}
-		;
 		while (!t2.isAlive()) {
 			Thread.sleep(1000);
 		}
 		while (!t3.isAlive()) {
 			Thread.sleep(1000);
 		}
-		;
 		Thread[] ts = new Thread[3];
 		ts[0] = t1;
 		ts[1] = t2;
