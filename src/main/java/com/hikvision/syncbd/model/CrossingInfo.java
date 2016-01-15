@@ -3,6 +3,8 @@ package com.hikvision.syncbd.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class CrossingInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long crossing_id;
@@ -187,7 +189,8 @@ public class CrossingInfo implements Serializable {
 	public void setRelated_camera_path(String related_camera_path) {
 		this.related_camera_path = related_camera_path;
 	}
-
+	
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	public Timestamp getUpdatetime() {
 		return updatetime;
 	}
@@ -204,7 +207,4 @@ public class CrossingInfo implements Serializable {
 		this.crossing_server_id = crossing_server_id;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 }

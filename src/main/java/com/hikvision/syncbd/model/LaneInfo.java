@@ -3,6 +3,8 @@ package com.hikvision.syncbd.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class LaneInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -162,7 +164,8 @@ public class LaneInfo implements Serializable {
 	public void setTrigger_type(Long trigger_type) {
 		this.trigger_type = trigger_type;
 	}
-
+	
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Timestamp getUpdatetime() {
 		return updatetime;
 	}
@@ -179,7 +182,4 @@ public class LaneInfo implements Serializable {
 		this.crossing_id = crossing_id;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 }

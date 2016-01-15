@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
-	//find resouce in classpath
+	//find resource in classpath
 	public static Properties in(String filename) {
 		InputStream inputStream = ConfigReader.class.getClassLoader()
 				.getResourceAsStream(filename);

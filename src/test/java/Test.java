@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-
 
 /**
  * @author chenhuaming
@@ -12,11 +9,33 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
  */
 public class Test {
 	public static void main(String args[]){
-		List<Integer> list = new ArrayList<Integer>();
-		for(int i = 0; i<10; i++){
-			list.add(i);
-		}
-		List<Integer> sub = list.subList(0, 3);
-		System.out.println(JSON.toJSONString(sub));
+		new S().say();
+	}
+}
+class F{
+	private String a ="100";
+	public void m(){
+		System.out.println("fff");
+	}
+	public void fuck(){try {
+		String s =((F)(new S())).a;
+		Class<? extends F> clz = this.getClass();
+		System.out.println(clz.getName());
+		System.out.println((clz.newInstance()).a);
+		System.out.println(((F)(new S())).a);
+	} catch (InstantiationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IllegalAccessException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}}
+}
+class S extends F{
+	public void m(){
+		System.out.println("s");
+	}
+	public void say(){
+		this.fuck();
 	}
 }

@@ -3,6 +3,8 @@ package com.hikvision.syncbd.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class VehicleViolation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -90,7 +92,7 @@ public class VehicleViolation implements Serializable {
 	public void setLane_id(Long lane_id) {
 		this.lane_id = lane_id;
 	}
-
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Timestamp getAlarm_time() {
 		return alarm_time;
 	}
@@ -170,7 +172,8 @@ public class VehicleViolation implements Serializable {
 	public void setPlate_type(Long plate_type) {
 		this.plate_type = plate_type;
 	}
-
+	
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Timestamp getUpdate_time() {
 		return update_time;
 	}
@@ -257,9 +260,5 @@ public class VehicleViolation implements Serializable {
 
 	public void setVehicle_type(Long vehicle_type) {
 		this.vehicle_type = vehicle_type;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 }

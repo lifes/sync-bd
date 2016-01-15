@@ -29,8 +29,9 @@ public class HttpHelper {
 		params.put("storeName", storeName);
 		params.put("typeName", typeName);
 		params.put("fileType", "IMAGE");
-		String jsonString = new HttpRequest().sendPostWithFile(
-				uploadImgSingleUrl, params, null, img);
+//		String jsonString = new HttpRequest().sendPostWithFile(
+//				uploadImgSingleUrl, params, null, img);
+		String jsonString = new HttpRequest().sendPostWithFile2(uploadImgSingleUrl, img, config);
 		try {
 			JSONObject json = JSON.parseObject(jsonString);
 			if (json.getIntValue("statusCode") == 100) {
@@ -51,7 +52,7 @@ public class HttpHelper {
 		String accessUser = config.getAccessUser();
 		String accessKey = config.getAccessKey();
 		String storeName = config.getStructuredStoreName();
-		String typeName = config.getNoStructuredStoreName()
+		String typeName = config.getStructuredTypeName()
 				+ tableName.toUpperCase();
 		String uploadRecordsUrl = config.getUploadRecordsUrl();
 		Map<String, String> params = new HashMap<String, String>();
@@ -64,6 +65,7 @@ public class HttpHelper {
 		if (charset == null) {
 			charset = Charset.forName("UTF-8");
 		}
+		//System.out.println(JSON.toJSONString(params));
 		new HttpRequest().sendPostWithUrlEncodedFormEntity(uploadRecordsUrl,
 				params, charset);
 		return false;

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,12 @@ import org.apache.http.util.EntityUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import com.xinyi.xinfo.imageserver_util.commons.utils.Constant;
+import com.xinyi.xinfo.imageserver_util.commons.utils.HttpHelper;
+import com.xinyi.xinfo.imageserver_util.commons.utils.ResponseContent;
+
 /**
- * @author chenhuaming 2016-1-8
+ * @author chenhuaming 2016-1-11
  * 
  */
 public class HttpRequest {
@@ -61,6 +66,28 @@ public class HttpRequest {
 		}
 	}
 
+	public String sendPostWithFile2(String url, File file, Config config) throws WrapperException {
+		try {
+			Map<String, Object> paramsMap = new IdentityHashMap<String, Object>();
+			String fileName = file.getName();
+			FileInputStream fin = new FileInputStream(file);
+			byte[] data = new byte[fin.available()];
+			fin.read(data);
+			fin.close();
+			paramsMap.put(Constant.IMAGESERVER_UPLOAD_ACCESSUSER, config.getAccessUser());
+			paramsMap.put(Constant.IMAGESERVER_UPLOAD_ACCESSKEY,config.getAccessKey());
+			paramsMap.put(Constant.IMAGESERVER_UPLOAD_STORENAME, config.getNoStructuredStoreName());
+			paramsMap.put(Constant.IMAGESERVER_UPLOAD_TYPENAME, config.getNoStructuredTypeName());
+			paramsMap.put(Constant.IMAGESERVER_UPLOAD_FILETYPE, "IMAGE");
+			paramsMap.put(Constant.IMAGESERVER_UPLOAD_FILENAME,fileName);
+			paramsMap.put(Constant.IMAGESERVER_UPLOAD_FILE, data);
+			ResponseContent ret = HttpHelper.postEntity(url, paramsMap);
+			return ret.getContent();
+		} catch (Throwable e) {
+			throw new WrapperException("上传图片失败");
+		}
+	}
+
 	public String sendPostWithFile(String url, Map<String, String> params,
 			Charset charset, File... files) throws ClientProtocolException,
 			IOException, WrapperException {
@@ -76,7 +103,7 @@ public class HttpRequest {
 			if (charset == null) {
 				charset = Charset.forName("UTF-8");
 			}
-			builder.setCharset(charset);
+			// builder.setCharset(charset);
 
 			// builder.addTextBody("name", "wtf");
 			for (NameValuePair nvp : mapToListNvp(params)) {

@@ -28,7 +28,7 @@ public class T3 implements Runnable {
 
 	public void run() {
 		try {
-			Thread.sleep(100000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
